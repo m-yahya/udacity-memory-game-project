@@ -2,7 +2,7 @@
  * Create a list that holds all of your cards
  */
 
-let cardsArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-anchor', 'fa-leaf', 'fa-bicycle',
+const cardsArray = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-anchor', 'fa-leaf', 'fa-bicycle',
   'fa-diamond', 'fa-bomb', 'fa-leaf', 'fa-bomb', 'fa-bolt', 'fa-bicycle', 'fa-paper-plane-o', 'fa-cube'
 ];
 
@@ -43,11 +43,17 @@ function shuffle(array) {
  */
 
 // get all cards
-let cards = document.querySelectorAll('.card');
+const cards = document.querySelector('.deck');
 
 // flipping cards
-cards.forEach(card => {
-  card.addEventListener('click', e => {
-    card.classList.add('open', 'show');
-  });
-});
+function flipCard(targetCard) {
+  targetCard.classList.toggle('open');
+  targetCard.classList.toggle('show');
+}
+
+cards.addEventListener('click', event => {
+  const clickTarget = event.target;
+  if (clickTarget.classList.contains('card')) {
+    flipCard(clickTarget);
+  }
+})
