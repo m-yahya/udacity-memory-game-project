@@ -43,17 +43,49 @@ function shuffle(array) {
  */
 
 // get all cards
-const cards = document.querySelector('.deck');
+const deck = document.querySelector('.deck');
 
 // flipping cards
+// store flipped cards
+let flippedCards = [];
+
 function flipCard(targetCard) {
   targetCard.classList.toggle('open');
   targetCard.classList.toggle('show');
 }
 
-cards.addEventListener('click', event => {
+function addFlippedCard(flippedCard) {
+  flippedCards.push(flippedCard);
+}
+
+deck.addEventListener('click', event => {
   const clickTarget = event.target;
-  if (clickTarget.classList.contains('card')) {
+  if (clickTarget.classList.contains('card') &&
+    !clickTarget.classList.contains('match') &&
+    flippedCards.length < 2 &&
+    !flippedCards.includes(clickTarget)) {
     flipCard(clickTarget);
+    addFlippedCard(clickTarget);
+
+    if (flippedCards.length === 2) {
+      matchCard();
+    }
   }
-})
+
+});
+
+// checking match
+function matchCard() {
+  if (flippedCards[0].firstElementChild.className === flippedCards[1].firstElementChild.className) {
+    flippedCards[0].classList.toggle('match');
+    flippedCards[1].classList.toggle('match');
+    flippedCards = [];
+  } else {
+    setTimeout(() => {
+      flipCard(flippedCards[0]);
+      flipCard(flippedCards[1]);
+      flippedCards = [];
+    }, 1000)
+
+  }
+}
