@@ -16,6 +16,31 @@ function shuffleCards() {
 }
 shuffleCards();
 
+// move(s) and stars
+let moves = 0;
+
+function moveIncrement() {
+  moves++;
+  document.querySelector('.moves').innerHTML = moves;
+  hideStar();
+
+}
+
+function hideStar() {
+  const stars = document.querySelectorAll('.fa-star');
+  if (moves === 10) {
+    stars[0].style.display = 'none';
+  } else if (moves === 16) {
+    stars[0].style.display = 'none';
+    stars[1].style.display = 'none';
+  } else if (moves >= 20) {
+    stars[0].style.display = 'none';
+    stars[1].style.display = 'none';
+    stars[2].style.display = 'none';
+  }
+
+}
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -77,6 +102,7 @@ deck.addEventListener('click', event => {
 
     if (flippedCards.length === 2) {
       matchCard();
+      moveIncrement();
     }
   }
 
