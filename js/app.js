@@ -104,6 +104,7 @@ const deck = document.querySelector('.deck');
 // flipping cards
 // store flipped cards
 let flippedCards = [];
+let matched = 0;
 
 function flipCard(targetCard) {
   targetCard.classList.toggle('open');
@@ -142,6 +143,7 @@ function matchCard() {
     flippedCards[0].classList.toggle('match');
     flippedCards[1].classList.toggle('match');
     flippedCards = [];
+    matched++;
   } else {
     setTimeout(() => {
       flipCard(flippedCards[0]);
@@ -158,9 +160,6 @@ function toggleModal() {
   modal.classList.toggle('hide');
 }
 
-displayModalStats();
-toggleModal();
-
 function displayModalStats() {
   const timerStat = document.querySelector('.timer').innerHTML;
   const stars = getStars();
@@ -170,6 +169,10 @@ function displayModalStats() {
   document.querySelector('.modal-moves').innerHTML = `Moves: ${moves}`;
 
 }
+
+displayModalStats();
+toggleModal();
+toggleModal();
 
 function getStars() {
   const stars = document.querySelectorAll('.stars li');
@@ -190,4 +193,60 @@ document.querySelector('.modal-cancel').addEventListener('click', () => {
 
 document.querySelector('.modal-close').addEventListener('click', () => {
   toggleModal();
-})
+});
+
+document.querySelector('.modal-replay').addEventListener('click', () => {
+  resetGame();
+});
+
+document.querySelector('.restart').addEventListener('click', () => {
+  replayGame();
+});
+
+// reset game
+function resetGame() {
+  stopTimer();
+  timerOff = true;
+  time = 0;
+  startTimer();
+  resetMoves();
+  resetStars();
+  shuffleCards();
+}
+
+function resetMoves() {
+  moves = 0;
+  document.querySelector('.moves').innerHTML = moves;
+}
+
+function resetStars() {
+  stars = 0;
+  const allStars = document.querySelector('.fa-star');
+  allStars.style.display = 'inline';
+}
+
+if (matched === 8) {
+  console.log('hi');
+  gameOver();
+}
+
+// game over
+function gameOver() {
+  stopTimer();
+  toggleModal();
+}
+
+// replay game
+function replayGame() {
+  resetGame();
+  toggleModal();
+  resetCards();
+}
+
+// reset cards
+function resetCards() {
+  const allCards = document.querySelectorAll('.deck li');
+  for (let card of allCards) {
+    card.className = 'card';
+  }
+}
