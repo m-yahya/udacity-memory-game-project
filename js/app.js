@@ -41,6 +41,29 @@ function hideStar() {
 
 }
 
+// timer
+let timer;
+let time = 0;
+let timerOff = true;
+
+function startTimer() {
+  timer = setInterval(() => {
+    time++;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    if (seconds < 10) {
+      document.querySelector('.timer').innerHTML = `${minutes}:0${seconds}`;
+    } else {
+      document.querySelector('.timer').innerHTML = `${minutes}:${seconds}`;
+    }
+  }, 1000);
+}
+
+// stop timer
+function stopTimer() {
+  clearInterval(timer);
+}
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -103,6 +126,11 @@ deck.addEventListener('click', event => {
     if (flippedCards.length === 2) {
       matchCard();
       moveIncrement();
+    }
+
+    if (timerOff){
+      startTimer();
+      timerOff = false;
     }
   }
 
