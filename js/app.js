@@ -128,7 +128,7 @@ deck.addEventListener('click', event => {
       moveIncrement();
     }
 
-    if (timerOff){
+    if (timerOff) {
       startTimer();
       timerOff = false;
     }
@@ -151,3 +151,43 @@ function matchCard() {
 
   }
 }
+
+// toggle modal
+function toggleModal() {
+  const modal = document.querySelector('.modal');
+  modal.classList.toggle('hide');
+}
+
+displayModalStats();
+toggleModal();
+
+function displayModalStats() {
+  const timerStat = document.querySelector('.timer').innerHTML;
+  const stars = getStars();
+
+  document.querySelector('.modal-time').innerHTML = `Time: ${timerStat}`;
+  document.querySelector('.modal-stars').innerHTML = `Stars: ${stars}`;
+  document.querySelector('.modal-moves').innerHTML = `Moves: ${moves}`;
+
+}
+
+function getStars() {
+  const stars = document.querySelectorAll('.stars li');
+  let starCount = 0;
+
+  for (star of stars) {
+    if (star.style.display !== 'none') {
+      starCount++;
+    }
+  }
+  return starCount;
+}
+
+// modal buttons
+document.querySelector('.modal-cancel').addEventListener('click', () => {
+  toggleModal();
+});
+
+document.querySelector('.modal-close').addEventListener('click', () => {
+  toggleModal();
+})
