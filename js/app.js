@@ -157,9 +157,7 @@ function matchCard() {
     flippedCards[1].classList.toggle('match');
     flippedCards = [];
     matched++;
-    if (matched === 8) {
-      gameOver();
-    }
+    gameWin();
   } else {
     setTimeout(() => {
       flipCard(flippedCards[0]);
@@ -184,11 +182,9 @@ function displayModalStats() {
   document.querySelector('.modal-stars').innerHTML = `Stars: ${stars}`;
   document.querySelector('.modal-moves').innerHTML = `Moves: ${moves}`;
 
-}
+  console.log(`Time: ${timerStat}`);
 
-displayModalStats();
-toggleModal();
-toggleModal();
+}
 
 function getStars() {
   const stars = document.querySelectorAll('.stars li');
@@ -245,6 +241,7 @@ function resetStars() {
 // game over
 function gameOver() {
   stopTimer();
+  displayModalStats();
   toggleModal();
 }
 
@@ -260,5 +257,12 @@ function resetCards() {
   const allCards = document.querySelectorAll('.deck li');
   for (let card of allCards) {
     card.className = 'card';
+  }
+}
+
+// game win
+function gameWin() {
+  if (matched === 8) {
+    gameOver();
   }
 }
