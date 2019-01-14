@@ -177,7 +177,6 @@ toggleModal();
 function getStars() {
   const stars = document.querySelectorAll('.stars li');
   let starCount = 0;
-
   for (star of stars) {
     if (star.style.display !== 'none') {
       starCount++;
@@ -212,6 +211,8 @@ function resetGame() {
   resetMoves();
   resetStars();
   shuffleCards();
+  resetCards();
+  toggleModal();
 }
 
 function resetMoves() {
@@ -225,8 +226,7 @@ function resetStars() {
   allStars.style.display = 'inline';
 }
 
-if (matched === 8) {
-  console.log('hi');
+if (matched === 7) {
   gameOver();
 }
 
