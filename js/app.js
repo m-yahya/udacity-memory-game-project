@@ -4,6 +4,19 @@
 
 const cardsArray = Array.from(document.querySelectorAll('.deck li'));
 
+// clear game board
+function clearBoard() {
+  for (card of cardsArray) {
+    if (card.classList.contains('match') || card.classList.contains('open')) {
+      card.classList.remove('match');
+      card.classList.remove('open');
+      card.classList.remove('show');
+    }
+  }
+}
+
+clearBoard();
+
 // shuffling cards
 function shuffleCards() {
   //const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -144,6 +157,9 @@ function matchCard() {
     flippedCards[1].classList.toggle('match');
     flippedCards = [];
     matched++;
+    if (matched === 8) {
+      gameOver();
+    }
   } else {
     setTimeout(() => {
       flipCard(flippedCards[0]);
@@ -224,10 +240,6 @@ function resetStars() {
   stars = 0;
   const allStars = document.querySelector('.fa-star');
   allStars.style.display = 'inline';
-}
-
-if (matched === 7) {
-  gameOver();
 }
 
 // game over
